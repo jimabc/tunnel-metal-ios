@@ -26,19 +26,28 @@ kernel void compute(texture2d<float, access::write> output [[texture(0)]],
     int texture_height = input.get_height();
     
     float2 screen = float2(screen_width, screen_height);
-    float2 p = (-1.0 + 2.0 * float2(gid.x, gid.y) / screen.xy); // -1 to 1
     float2 uv;
     
-    float r = length(p);
-    uv.x = .1 * timer + .1 / r;
+    // Calculate the pixel offset, relative to the center of the screen
+    float2 pixel = (-1.0 + 2.0 * float2(gid.x, gid.y) / screen.xy); // -1 to 1
+    float pixel_length = length(pixel);
+    
+    // Depth
+    float speed = .1 * timer;
+    uv.x = speed + (.1 / pixel_length);
     uv.x = map(fmod(uv.x, 1.0), 0.0, 1.0, 0.0, texture_height);
     
-    float a = atan2(p.y, p.x);
-    uv.y = 1. * a / 3.1416; // -1 to 1
+    // Angle
+    float angle = atan2(pixel.y, pixel.x);
+    uv.y = angle / 3.1416; // -1 to 1
     uv.y = map(uv.y, -1.0, 1.0, 0.0, texture_width);
     
+    // Shadow in the distance
     float4 color = input.read(uint2(uv));
-    color *= smoothstep(0.0, .5, r);
+    color *= smoothstep(0.0, .5, pixel_length);
+    
+    // Flip the y coordinate, otherwise texture will render backwards
     gid.y = screen_height - gid.y;
+    
     output.write(color, gid);
 }
