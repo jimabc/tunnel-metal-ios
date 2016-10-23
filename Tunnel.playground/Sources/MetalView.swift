@@ -30,7 +30,7 @@ public class MetalView: MTKView {
     }
     
     func setup() {
-        queue = device!.newCommandQueue()
+        queue = device!.makeCommandQueue()
         
         registerShaders()
         loadTextures()
@@ -38,39 +38,39 @@ public class MetalView: MTKView {
   
     func registerShaders() {
         do {
-            let path = NSBundle.mainBundle().pathForResource("Shaders", ofType: "metal")
-            let input = try String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
-            let library = try device!.newLibraryWithSource(input, options: nil)
-            let kernel = library.newFunctionWithName("compute")!
-            cps = try device!.newComputePipelineStateWithFunction(kernel)
+            let path = Bundle.main.path(forResource: "Shaders", ofType: "metal")
+            let input = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
+            let library = try device!.makeLibrary(source: input, options: nil)
+            let kernel = library.makeFunction(name: "compute")!
+            cps = try device!.makeComputePipelineState(function: kernel)
         } catch let e {
             Swift.print("\(e)")
         }
         
-        timerBuffer = device!.newBufferWithLength(sizeof(Float), options: [])
+        timerBuffer = device!.makeBuffer(length: MemoryLayout<Float>.size, options: [])
     }
     
     func loadTextures() {
-        let path = NSBundle.mainBundle().pathForResource("texture", ofType: "tga")
+        let path = Bundle.main.path(forResource: "texture", ofType: "tga")
         let textureLoader = MTKTextureLoader(device: device!)
-        texture = try! textureLoader.newTextureWithContentsOfURL(NSURL(fileURLWithPath: path!), options: nil)
+        texture = try! textureLoader.newTexture(withContentsOf: URL(fileURLWithPath: path!), options: nil)
     }
   
-    override public func drawRect(rect: CGRect) {
-        super.drawRect(rect)
+    override public func draw(_ rect: CGRect) {
+        super.draw(rect)
         
         guard let drawable = currentDrawable else {
             return
         }
         
-        let commandBuffer = queue.commandBuffer()
+        let commandBuffer = queue.makeCommandBuffer()
         
-        let commandEncoder = commandBuffer.computeCommandEncoder()
+        let commandEncoder = commandBuffer.makeComputeCommandEncoder()
         commandEncoder.setComputePipelineState(cps)
-        commandEncoder.setTexture(drawable.texture, atIndex: 0)
-        commandEncoder.setTexture(texture, atIndex: 1)
-        commandEncoder.setBuffer(timerBuffer, offset: 0, atIndex: 0)
-        
+        commandEncoder.setTexture(drawable.texture, at: 0)
+        commandEncoder.setTexture(texture, at: 1)
+        commandEncoder.setBuffer(timerBuffer, offset: 0, at: 0)
+
         let threadGroupCount = MTLSizeMake(8, 8, 1)
         let threadGroups = MTLSizeMake(drawable.texture.width / threadGroupCount.width,
                                        drawable.texture.height / threadGroupCount.height, 1)
@@ -78,15 +78,15 @@ public class MetalView: MTKView {
         commandEncoder.dispatchThreadgroups(threadGroups, threadsPerThreadgroup: threadGroupCount)
         commandEncoder.endEncoding()
         
-        commandBuffer.presentDrawable(drawable)
+        commandBuffer.present(drawable)
         commandBuffer.commit()
-        
+
         update()
     }
     
     func update() {
         timer += 0.01
         let bufferPointer = timerBuffer.contents()
-        memcpy(bufferPointer, &timer, sizeof(Float))
+        memcpy(bufferPointer, &timer, MemoryLayout<Float>.size)
     }
 }

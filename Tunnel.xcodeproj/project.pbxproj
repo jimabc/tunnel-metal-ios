@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		387CCD9F1D4E8B7700333585 /* texture.tga in Resources */ = {isa = PBXBuildFile; fileRef = 387CCD9E1D4E89F700333585 /* texture.tga */; };
+		387792501DBD3D0900DEA58C /* texture.tga in Resources */ = {isa = PBXBuildFile; fileRef = 3877924F1DBD3D0900DEA58C /* texture.tga */; };
 		38A683A01D314A8800D4AEC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A6839F1D314A8800D4AEC6 /* AppDelegate.swift */; };
 		38A683A21D314A8800D4AEC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A683A11D314A8800D4AEC6 /* ViewController.swift */; };
 		38A683A51D314A8800D4AEC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38A683A31D314A8800D4AEC6 /* Main.storyboard */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		387CCD9E1D4E89F700333585 /* texture.tga */ = {isa = PBXFileReference; lastKnownFileType = file; name = texture.tga; path = ../../../../../../Downloads/texture.tga; sourceTree = "<group>"; };
+		3877924F1DBD3D0900DEA58C /* texture.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = texture.tga; sourceTree = "<group>"; };
 		38A6839C1D314A8800D4AEC6 /* Tunnel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38A6839F1D314A8800D4AEC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38A683A11D314A8800D4AEC6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				38A683C41D314CEC00D4AEC6 /* Assets.xcassets */,
-				387CCD9E1D4E89F700333585 /* texture.tga */,
+				3877924F1DBD3D0900DEA58C /* texture.tga */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -124,7 +124,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "James Matteson";
 				TargetAttributes = {
 					38A6839B1D314A8800D4AEC6 = {
@@ -157,7 +157,7 @@
 			files = (
 				38A683AA1D314A8800D4AEC6 /* LaunchScreen.storyboard in Resources */,
 				38A683A51D314A8800D4AEC6 /* Main.storyboard in Resources */,
-				387CCD9F1D4E8B7700333585 /* texture.tga in Resources */,
+				387792501DBD3D0900DEA58C /* texture.tga in Resources */,
 				38A683C51D314CEC00D4AEC6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,8 +212,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -258,8 +260,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -278,6 +282,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -287,11 +292,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tunnel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.jimabc.Tunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -299,11 +306,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tunnel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.jimabc.Tunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
